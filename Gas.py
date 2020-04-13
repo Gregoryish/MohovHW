@@ -157,7 +157,7 @@ def _z_supercompress(z_o, y_o, z_a, y_a):
     return z_supercompress 
 
 
-# In[14]:
+# In[1]:
 
 
 # для p = 0-20 МПа, T = 273-355 K
@@ -171,7 +171,7 @@ def _z_y(pressure_priv, temperature_priv):
     if (0<=pressure_priv<=1.45) and (1.05<=temperature_priv<1.17):
         z_y = 1 - 0.23*pressure_priv - (1.88 - 1.6*temperature_priv)*pressure_priv**2
     
-    if (1.45<=pressure_priv<=4) and (1.05<=temperature_priv<=1.17):
+    if (1.45<=pressure_priv<=5) and (1.05<=temperature_priv<=1.17):
         z_y = 0.13*pressure_priv + (6.05*temperature_priv - 6.26)*temperature_priv/pressure_priv**2  
     return z_y
 
