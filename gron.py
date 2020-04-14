@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 # coding: utf-8
 
-# In[1]:
+# In[ ]:
 
 
 import numpy as np
@@ -11,7 +11,7 @@ import Oil
 import Gas
 
 
-# In[2]:
+# In[ ]:
 
 
 def coef_1 (relative_viscosity, D_tubing):
@@ -25,7 +25,7 @@ def coef_1 (relative_viscosity, D_tubing):
     return round(c_1, 4)
 
 
-# In[3]:
+# In[ ]:
 
 
 def coef_2 (relative_viscosity, D_tubing):
@@ -45,7 +45,7 @@ def coef_2 (relative_viscosity, D_tubing):
     return round(c_2, 4)
 
 
-# In[4]:
+# In[ ]:
 
 
 def func_fi_gas(beta_gas, fruda_fluid, c_1, c_2):
@@ -59,7 +59,7 @@ def func_fi_gas(beta_gas, fruda_fluid, c_1, c_2):
     return fi
 
 
-# In[5]:
+# In[ ]:
 
 
 def func_velocity_fluid(q_liquid_p_T, q_gas_p_T, D_tubing):
@@ -93,7 +93,7 @@ def func_beta_gas (q_gas_p_T, q_liquid_p_T):
     return beta_gas
 
 
-# In[6]:
+# In[ ]:
 
 
 def func_relative_viscosity(viscosity_liquid_p_T):
@@ -196,7 +196,7 @@ def func_density_fluid (density_liquid_p_T, density_gas_p_T, fi_gas):
   
 
 
-# In[56]:
+# In[13]:
 
 
 # def get_gron_parametrs(q_liquid_p_T, q_gas_p_T, density_gas_p_T, density_liquid_p_T, viscosity_liquid_p_T, D_tubing):
@@ -217,7 +217,7 @@ def func_density_fluid (density_liquid_p_T, density_gas_p_T, fi_gas):
 #     return 
 
 
-# In[50]:
+# In[ ]:
 
 
 class Gron_parametrs:
@@ -239,20 +239,20 @@ class Gron_parametrs:
         return self.__dict__
 
 
-# In[51]:
+# In[ ]:
 
 
 # a = Gron_parametrs(q_liquid_p_T, q_gas_p_T, density_gas_p_T, density_liquid_p_T, viscosity_liquid_p_T, D_tubing)
 # b = Gron_parametrs(q_liquid_p_T, q_gas_p_T, density_gas_p_T, density_liquid_p_T, viscosity_liquid_p_T, D_tubing)
 
 
-# In[22]:
+# In[ ]:
 
 
 # q_liquid_p_T, q_gas_p_T, density_gas_p_T, density_liquid_p_T, viscosity_liquid_p_T, D_tubing = 30,20, 28.2, 941.2, 112.6, 0.0635
 
 
-# In[23]:
+# In[ ]:
 
 
 # relative_viscosity = func_relative_viscosity(viscosity_liquid_p_T)

@@ -165,7 +165,7 @@ def _z_supercompress(z_o, y_o, z_a, y_a):
 def _z_y(pressure_priv, temperature_priv):
     if temperature_priv<1.05:
         temperature_priv = 1.05
-    if (0<=pressure_priv<=3.8) and (1.17<=temperature_priv<2):
+    if (0<=pressure_priv<=5) and (1.17<=temperature_priv):
         z_y = 1 - pressure_priv*(0.18/(temperature_priv-0.73)-0.135)                + 0.016*pressure_priv**3.45/temperature_priv**6.1
 
     if (0<=pressure_priv<=1.45) and (1.05<=temperature_priv<1.17):
