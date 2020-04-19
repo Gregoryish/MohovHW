@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 # coding: utf-8
 
-# In[ ]:
+# In[7]:
 
 
 import numpy as np
@@ -11,7 +11,19 @@ import Oil
 import Gas
 
 
-# In[ ]:
+# In[8]:
+
+
+10**-3
+
+
+# In[9]:
+
+
+np.exp(-1)
+
+
+# In[10]:
 
 
 def coef_1 (relative_viscosity, D_tubing):
@@ -25,7 +37,7 @@ def coef_1 (relative_viscosity, D_tubing):
     return round(c_1, 4)
 
 
-# In[ ]:
+# In[11]:
 
 
 def coef_2 (relative_viscosity, D_tubing):
@@ -43,6 +55,24 @@ def coef_2 (relative_viscosity, D_tubing):
     if relative_viscosity>40:
         c_2 = (1+0.1082*np.exp(0.049*relative_viscosity))/(1+1.1002*np.exp(0.049*relative_viscosity))
     return round(c_2, 4)
+
+
+# In[ ]:
+
+
+
+
+
+# In[ ]:
+
+
+
+
+
+# In[ ]:
+
+
+
 
 
 # In[ ]:
@@ -217,7 +247,7 @@ def func_density_fluid (density_liquid_p_T, density_gas_p_T, fi_gas):
 #     return 
 
 
-# In[ ]:
+# In[13]:
 
 
 class Gron_parametrs:
@@ -228,7 +258,7 @@ class Gron_parametrs:
         self.velocity_fluid = func_velocity_fluid(q_liquid_p_T, q_gas_p_T, D_tubing)
         self.beta_gas = func_beta_gas (q_gas_p_T, q_liquid_p_T)
         self.fruda_fluid = func_fruda_fluid(self.velocity_fluid,  D_tubing)
-        self.fi_gas = func_fi_gas (self.beta_gas, self.fruda_fluid, self.c_1, self.c_2)
+        self.fi_gas = abs(func_fi_gas (self.beta_gas, self.fruda_fluid, self.c_1, self.c_2))
         self.density_fluid_p_T = func_density_fluid (density_liquid_p_T, density_gas_p_T, self.fi_gas)
         self.reinolds_liquid = func_reinolds_liquid (self.velocity_fluid, density_liquid_p_T, viscosity_liquid_p_T, D_tubing)
         self.labmda_friction = func_labmda_friction(self.reinolds_liquid, D_tubing)

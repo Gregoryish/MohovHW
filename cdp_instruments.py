@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 # coding: utf-8
 
-# In[ ]:
+# In[1]:
 
 
 import gron
@@ -11,7 +11,7 @@ import Gas
 import numpy as np
 
 
-# In[ ]:
+# In[2]:
 
 
 #функция под конкретные исходные данные, для получения значений объем газа, плотность газа при p,T
@@ -40,7 +40,7 @@ def get_gas_parametrs (p,t, q_gas_std, density_gas_std, relative_density_gas, y_
     return {'q_gas_p_t':round(volume_gas_p_t,2),'density_gas_p_t':round(density_gas_p_t,3)}
 
 
-# In[ ]:
+# In[3]:
 
 
 
@@ -124,7 +124,7 @@ def get_oil_parametrs(p, t, p_bbp, t_reservoir, gas_saturation, y_a, y_c1, densi
             'volume_separate_gas':volume_separate_gas}
 
 
-# In[ ]:
+# In[4]:
 
 
 def get_all_parametrs(p, t, p_bbp, t_reservoir, gas_saturation, y_a, y_c1, y_c, density_oil_without_gas, density_gas_std, relative_density_gas, density_water, B, q_liquid, D_tubing, a_gas = 0):
@@ -150,7 +150,7 @@ def get_all_parametrs(p, t, p_bbp, t_reservoir, gas_saturation, y_a, y_c1, y_c, 
     return oil_parametrs, gas_parametrs, gron_parametrs
 
 
-# In[ ]:
+# In[5]:
 
 
 def func_list_temperature (t_reservoir, t_head_tubing, p_reservoir, p_head_tubing, p_list, method=0):
@@ -192,7 +192,7 @@ def get_crd(q_liquid,
     """
     
     #создание листов p_list, t_list
-    p_wf = round(p_reservoir - q_liquid/PI ,3)
+    p_wf = round(p_reservoir - q_liquid/PI ,1)
     p_list = np.arange(p_wf, 0.2, -p_step)
     p_list = np.round(p_list,3)
     t_list = func_list_temperature(t_reservoir, t_head_tubing, p_reservoir, p_head_tubing, p_list)
@@ -270,10 +270,9 @@ def get_crd_from_head(q_liquid,
     
     for p, t in zip(p_list, t_list):
         
-        if h<h_tubing:
+        if True:
             D_tubing = D_tubing_in
-        else:
-            D_tubing = D_casing_in
+
         if len(list_all_parametrs) == 0:
             all_parametrs = get_all_parametrs(p, t, p_bbp, t_reservoir, gas_saturation, y_a, y_c1, y_c, density_oil_without_gas,density_gas_std, relative_density_gas, density_water, B, q_liquid, D_tubing, a_gas)
             list_all_parametrs.append(all_parametrs)
@@ -289,6 +288,25 @@ def get_crd_from_head(q_liquid,
     list_H = np.array(list_H)
     
     return p_list, list_H, list_all_parametrs
+
+
+# In[ ]:
+
+
+import pandas as pd 
+def get_data_frame(p_list, list_H, list_all_parametrs):
+    
+    
+    new_list = list()
+    for i, b in enumerate(list_all_parametrs):
+        b = {**b[0], **b[1], **b[2]}
+        new_list.append(b)
+    df = pd.DataFrame(new_list)
+    df['p'] = p_list
+    df['h'] = list_H
+    return df
+
+# df.to_excel('123.xlsx')
 
 
 # _____________________________________
@@ -330,21 +348,6 @@ def get_crd_from_head(q_liquid,
 # In[9]:
 
 
-# # #дебит по жидкости м3/сут
-# # q_liquid = 40
-# # #обводнённость, д.ед
-# # B = 0
-# # #диаметр экспл. колонны внутренний, м
-# # D_casing_in = 0.133
-# # #диаметр нкт колонны внутренний, м
-# # D_tubing_in = 0.0503
-# # #давление на устье в НКТ, МПа
-# # p_head_tubing = 0.9
-# # #Глубина скважины, м
-# # h_well = 1605
-# # #Глубина спуска труб, м
-# # h_tubing = 1205
-
 # #дебит по жидкости м3/сут
 # q_liquid = 40
 # #обводнённость, д.ед
@@ -354,11 +357,26 @@ def get_crd_from_head(q_liquid,
 # #диаметр нкт колонны внутренний, м
 # D_tubing_in = 0.0503
 # #давление на устье в НКТ, МПа
-# p_head_tubing = 0.4
+# p_head_tubing = 0.9
 # #Глубина скважины, м
-# h_well = 1670
+# h_well = 1605
 # #Глубина спуска труб, м
-# h_tubing = 1099
+# h_tubing = 1205
+
+#дебит по жидкости м3/сут
+q_liquid = 40
+#обводнённость, д.ед
+B = 0
+#диаметр экспл. колонны внутренний, м
+D_casing_in = 0.133
+#диаметр нкт колонны внутренний, м
+D_tubing_in = 0.0503
+#давление на устье в НКТ, МПа
+p_head_tubing = 0.4
+#Глубина скважины, м
+h_well = 1670
+#Глубина спуска труб, м
+h_tubing = 1099
 
 
 # дополнительные параметры
@@ -408,14 +426,20 @@ def get_crd_from_head(q_liquid,
 # _____________________________________________________________
 # создание расчёта КРД
 
-# In[12]:
+# In[14]:
 
 
 # q_liquid = 40
-# a_gas = 0
+# a_gas = 80
 
 
-# In[13]:
+# In[ ]:
+
+
+
+
+
+# In[15]:
 
 
 # p_list, list_H, list_all_parametrs = get_crd_from_head(
@@ -426,13 +450,26 @@ def get_crd_from_head(q_liquid,
 #             gas_saturation, 
 #             y_a, y_c1, y_c, 
 #             density_oil_without_gas, 
+#             density_gas_std,
 #             relative_density_gas, 
 #             density_water, 
 #             B, 
 #             D_tubing_in, D_casing_in, a_gas=a_gas)
 
 
-# In[15]:
+# In[ ]:
+
+
+
+
+
+# In[ ]:
+
+
+
+
+
+# In[16]:
 
 
 # import plotly.graph_objects as go
